@@ -22,7 +22,7 @@ CORES=$( fgrep 'cpu cores' /proc/cpuinfo | sort -u | sed 's/.*: //' )
 PARA_PREFIX="mpirun -np $((P_CPU*CORES))"
 PW_COMMAND="$PARA_PREFIX pw.x"
 PW2W_COMMAND="$PARA_PREFIX pw2wannier90.x"
-W90_COMMAND="$PARA_PREFIX wannier90.x"
+W90_COMMAND="wannier90.x"
 
 echo "current directory: $CURRENT_DIR"
 echo "pw command: $PW_COMMAND"
