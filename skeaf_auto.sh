@@ -1,25 +1,30 @@
 #!/bin/bash
 
-corename="ctoa"
+#prepare 'config_bandXX.in' and '*.bxsf' for each band in current directory.
+#then, correctly set the following scripts, e.g., corename and band index.
+#results are stored in the directries $corename/bandXX.
+
+corename="btoc"
 
 mkdir $corename
-mkdir $corename/band17
-mkdir $corename/band19
-mkdir $corename/band21
-mkdir $corename/band23
+mkdir $corename/band10
+mkdir $corename/band11
+#mkdir $corename/bandXX
+#mkdir $corename/bandXX
 
-cp config_band17.in config.in
+cp config_band10.in config.in
 skeaf -rdcfg
-mv *.out $corename/band17
+mv *.out $corename/band10
 
-cp config_band19.in config.in
+cp config_band11.in config.in
 skeaf -rdcfg
-mv *.out $corename/band19
+mv *.out $corename/band11
 
-cp config_band21.in config.in
-skeaf -rdcfg
-mv *.out $corename/band21
+#cp config_bandXX.in config.in
+#skeaf -rdcfg
+#mv *.out $corename/bandXX
 
-cp config_band23.in config.in
-skeaf -rdcfg
-mv *.out $corename/band23
+#cp config_bandXX.in config.in
+#skeaf -rdcfg
+#mv *.out $corename/bandXX
+
