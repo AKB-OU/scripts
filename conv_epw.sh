@@ -21,7 +21,7 @@ P_CPU=$( fgrep 'physical id' /proc/cpuinfo | sort -u | wc -l )
 CORES=$( fgrep 'cpu cores' /proc/cpuinfo | sort -u | sed 's/.*: //' )
 PARA_PREFIX="mpirun -np $((P_CPU*CORES))"
 POST_PREFIX="-npool $((P_CPU*CORES))"
-EPW_COMMAND="$PARA_PREFIX ~/qe/qe-7.0/EPW/bin/epw.x $POST_PREFIX"
+EPW_COMMAND="$PARA_PREFIX epw.x $POST_PREFIX"
 
 echo "current directory: $CURRENT_DIR"
 echo "epw command: $EPW_COMMAND"
@@ -37,8 +37,8 @@ do
     sed -e "s/n${FLAG}f1.*/n${FLAG}f1 = ${KMESH}/" -e "s/n${FLAG}f2.*/n${FLAG}f2 = ${KMESH}/" -e "s/n${FLAG}f3.*/n${FLAG}f3 = ${KMESH}/" ${FNAME} > ${FNAME}.${FLAG}${KMESH}
     echo "diff ${FNAME} ${FNAME}.${FLAG}${KMESH}:"
     diff ${FNAME} ${FNAME}.${FLAG}${KMESH}
-    #$EPW_COMMAND < ${FNAME}.${FLAG}${KMESH} > ${FLAG}${KMESH}.out
-    mpirun -np $((P_CPU*CORES)) ~/qe/qe-7.0/EPW/bin/epw.x -npool $((P_CPU*CORES)) < ${FNAME}.${FLAG}${KMESH} > ${FLAG}${KMESH}.out
+    $EPW_COMMAND < ${FNAME}.${FLAG}${KMESH} > ${FLAG}${KMESH}.out
+    #mpirun -np $((P_CPU*CORES)) epw.x -npool $((P_CPU*CORES)) < ${FNAME}.${FLAG}${KMESH} > ${FLAG}${KMESH}.out
     
     grep "lambda :" ${FLAG}${KMESH}.out
     grep "lambda_tr :" ${FLAG}${KMESH}.out

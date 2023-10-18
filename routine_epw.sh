@@ -21,7 +21,7 @@ CORES=$( fgrep 'cpu cores' /proc/cpuinfo | sort -u | sed 's/.*: //' )
 PARA_PREFIX="mpirun -np $((P_CPU*CORES))"
 SUFFIX="-npool $((P_CPU*CORES))"
 PW_COMMAND="$PARA_PREFIX pw.x $SUFFIX"
-EPW_COMMAND="$PARA_PREFIX ~/qe/qe-7.0/EPW/bin/epw.x $SUFFIX"
+EPW_COMMAND="$PARA_PREFIX epw.x $SUFFIX"
 
 echo "current directory: $CURRENT_DIR"
 echo "pw command: $PW_COMMAND"
@@ -145,8 +145,8 @@ echo
 
 #EPW_epmat_calc.
 echo "EPW_epmat_calc start"
-#$EPW_COMMAND < epw.in > epw.out
-mpirun -np 16 ~/qe/qe-7.0/EPW/bin/epw.x -npool 16 < epw.in > epw.out
+$EPW_COMMAND < epw.in > epw.out
+#mpirun -np $((P_CPU*CORES)) epw.x -npool $((P_CPU*CORES)) < epw.in > epw.out
 echo "EPW_epmat_calc finished"
 echo
 
@@ -159,25 +159,29 @@ echo
 
 #EPW_band_calc.
 echo "EPW_band_calc start"
-mpirun -np 16 ~/qe/qe-7.0/EPW/bin/epw.x -npool 16 < epw.in2 > epw.out2
+$EPW_COMMAND < epw.in2 > epw.out2
+#mpirun -np $((P_CPU*CORES)) epw.x -npool $((P_CPU*CORES)) < epw.in2 > epw.out2
 echo "EPW_band_calc finished"
 echo
 
 #EPW_a2f_calc.
 echo "EPW_a2f_calc start"
-mpirun -np 16 ~/qe/qe-7.0/EPW/bin/epw.x -npool 16 < epw.in4 > epw.out4
+$EPW_COMMAND < epw.in4 > epw.out4
+#mpirun -np $((P_CPU*CORES)) epw.x -npool $((P_CPU*CORES)) < epw.in4 > epw.out4
 echo "EPW_a2f_calc finished"
 echo
 
 #EPW_linewidth_calc.
 echo "EPW_linewidth_calc start"
-mpirun -np 16 ~/qe/qe-7.0/EPW/bin/epw.x -npool 16 < epw.in3 > epw.out3
+$EPW_COMMAND < epw.in3 > epw.out3
+#mpirun -np $((P_CPU*CORES)) epw.x -npool $((P_CPU*CORES)) < epw.in3 > epw.out3
 echo "EPW_linewidth_calc finished"
 echo
 
 #EPW_eliashberg_calc.
 echo "EPW_eliashberg_calc start"
-mpirun -np 16 ~/qe/qe-7.0/EPW/bin/epw.x -npool 16 < eliashberg.in > eliashberg.out
+$EPW_COMMAND < eliashberg.in > eliashberg.out
+#mpirun -np $((P_CPU*CORES)) epw.x -npool $((P_CPU*CORES)) < eliashberg.in > eliashberg.out
 echo "EPW_eliashberg_calc finished"
 echo
 
